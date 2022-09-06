@@ -3,7 +3,7 @@ const RoutesVersions = {
   pathAll: '/',
   pathSingle: '/:version',
   pathMultiple: '/versions/:version',
-  pathUpdated: '/update/:id',
+  pathUpdated: '/item/update/:id',
   pathDelete: '/remove/:version',
 };
 

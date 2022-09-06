@@ -1,6 +1,6 @@
 const Versions = require('../schemas/versions.schema.js');
 const { setError } = require('../../utils/error/error.js');
-const { status, messagesVersions } = require('../../utils/helpers/helpers.js');
+const { status, messages } = require('../../utils/helpers/helpers.js');
 const ErrorFieldsException = require('../errors/missingFields.js');
 const { Ok, Updated, Created, Internal_Server_Error, Not_found } = status;
 const {
@@ -15,7 +15,7 @@ const {
   successUpdate,
   errorDelete,
   deleted,
-} = messagesVersions;
+} = messages;
 
 const createVersion = async (req, res, next) => {
   try {
@@ -25,7 +25,7 @@ const createVersion = async (req, res, next) => {
     const versionInDB = await newVersion.save();
     return res.json({
       status: Created,
-      message: successCreate,
+      message: successCreate('version'),
       result: versionInDB,
     });
   } catch (error) {
@@ -38,11 +38,11 @@ const getAllVersions = async (req, res, next) => {
     const versions = await Versions.find();
     return res.json({
       status: Ok,
-      message: successAll,
+      message: successAll('versions'),
       results: versions,
     });
   } catch (error) {
-    return next(setError(Internal_Server_Error, errorAll));
+    return next(setError(Internal_Server_Error, errorAll('versions')));
   }
 };
 
@@ -50,14 +50,14 @@ const getSingleVersion = async (req, res, next) => {
   try {
     const { version } = req.params;
     const versions = await Versions.find({ version: version });
-    if (!versions) return next(setError(Not_found, notFound));
+    if (!versions) return next(setError(Not_found, notFound('version')));
     return res.json({
       status: Ok,
-      message: successSingle,
+      message: successSingle('version'),
       result: versions,
     });
   } catch (error) {
-    return next(setError(Internal_Server_Error, errorSingle));
+    return next(setError(Internal_Server_Error, errorSingle('version')));
   }
 };
 
@@ -66,14 +66,15 @@ const getMultipleVersions = async (req, res, next) => {
     const { version } = req.params;
     let versions = version.split(',');
     const multipleVersions = await Versions.find({ version: versions });
-    if (!multipleVersions) return next(setError(Not_found, notFound));
+    if (!multipleVersions)
+      return next(setError(Not_found, notFound('versions')));
     return res.json({
       status: Ok,
-      message: successMultiple,
+      message: successMultiple('versions'),
       results: multipleVersions,
     });
   } catch (error) {
-    return next(setError(Internal_Server_Error, errorMultiple));
+    return next(setError(Internal_Server_Error, errorMultiple('versions')));
   }
 };
 
@@ -83,14 +84,14 @@ const update = async (req, res, next) => {
     const version = new Versions(req.body);
     version._id = id;
     const updatedVersion = await Versions.findByIdAndUpdate(id, version);
-    if (!updatedVersion) return next(setError(Not_found, notFound));
+    if (!updatedVersion) return next(setError(Not_found, notFound('version')));
     return res.json({
       status: Updated,
-      message: successUpdate,
+      message: successUpdate('version'),
       result: updatedVersion,
     });
   } catch (error) {
-    return next(setError(Internal_Server_Error, errorSingle));
+    return next(setError(Internal_Server_Error, errorSingle('version')));
   }
 };
 
@@ -100,16 +101,17 @@ const remove = async (req, res, next) => {
     const deletedVersion = await Versions.findOneAndRemove({
       version: version,
     });
-    if (!deletedVersion) return next(setError(Not_found, notFound));
+    if (!deletedVersion) return next(setError(Not_found, notFound('version')));
     return res.json({
       status: Ok,
-      message: deleted,
+      message: deleted('version'),
       result: deletedVersion,
     });
   } catch (error) {
-    return next(setError(Internal_Server_Error, errorDelete));
+    return next(setError(Internal_Server_Error, errorDelete('version')));
   }
 };
+
 
 module.exports = {
   createVersion,

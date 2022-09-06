@@ -31,18 +31,6 @@ describe('Testing 2: Get all Versions', () => {
   });
 });
 
-describe('Testing 3: Get a single version', () => {
-  it('should get a single version', (done) => {
-    chai
-      .request(url)
-      .get('/1')
-      .end(function (err, res) {
-        console.log(res.body);
-        expect(res.body).to.have.property('version').to.be.equal(1);
-        expect(res).to.have.status(200);
-        done();
-      });
-  });
-});
+
 
 

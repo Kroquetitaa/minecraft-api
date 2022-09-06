@@ -1,5 +1,6 @@
 const status = {
   Ok: 200,
+  Accepted: 202,
   Updated: 201,
   Created: 201,
   Unauthorized: 401,
@@ -9,21 +10,23 @@ const status = {
   Internal_Server_Error: 500,
 };
 
-const messagesVersions = {
-  successCreate: 'Created new version',
-  successAll: 'Recovered all versions',
-  errorAll: 'Failed recovered all versions',
-  errorSingle: 'Failed recovered a version',
-  errorMultiple: 'Failed recovered multiple versions',
-  successSingle: 'Recovered version',
-  successMultiple: 'Recovered multiple versions',
-  notFound: 'Not found',
-  successUpdate: 'Version updated',
-  errorDelete: 'Failed to deleted version',
-  deleted: 'Deleted Version',
+const messages = {
+  successCreate: (message) => `Created new ${message}`,
+  successAll: (message) => `Recovered all ${message}`,
+  errorAll: (message) => `Failed recovered all ${message}`,
+  errorSingle: (message) => `Failed recovered a ${message}`,
+  errorMultiple: (message) => `Failed recovered multiple ${message}`,
+  successSingle: (message) => `Recovered ${message}`,
+  successMultiple: (message) => `Recovered multiple ${message}`,
+  succesFilter: () => `Recovered values`,
+  errorFilter: () => `Failed to recovered filter values`,
+  notFound: (message) => `${message} not found`,
+  successUpdate: (message) => `${message} updated`,
+  errorDelete: (message) => `Failed to deleted ${message}`,
+  deleted: (message) => `Deleted ${message}`,
 };
 
 module.exports = {
   status,
-  messagesVersions,
+  messages,
 };
