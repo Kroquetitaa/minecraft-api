@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { connectDB } = require('./utils/database/db');
 
+const VersionsRoutes = require('./infraestructure/routes/versions.routes.js');
 
 connectDB();
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 8080;
 
+app.use('/api', VersionsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
