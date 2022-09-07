@@ -16,6 +16,7 @@ const {
   errorFilter,
   succesFilter,
   successUpdate,
+  errorUpdate,
   errorDelete,
   deleted,
 } = messages;
@@ -150,14 +151,14 @@ const update = async (req, res, next) => {
     if (!updateItem) return next(setError(404, 'minecraftID not found'));
     return res.json({
       status: Updated,
-      message: 'Character updated',
+      message: successUpdate(minecraftID),
       data: updateItem,
     });
   } catch (error) {
     return next(
       setError(
         Internal_Server_Error,
-        error.message || 'Failed to updated Character!',
+        errorUpdate('MinecraftID'),
       ),
     );
   }
