@@ -148,7 +148,7 @@ const update = async (req, res, next) => {
     const item = new Items(req.body);
     item._id = minecraftID;
     const updateItem = await Items.findByIdAndUpdate(minecraftID, item);
-    if (!updateItem) return next(setError(404, 'minecraftID not found'));
+    if (!updateItem) return next(setError(Not_found, notFound(minecraftID)));
     return res.json({
       status: Updated,
       message: successUpdate(minecraftID),

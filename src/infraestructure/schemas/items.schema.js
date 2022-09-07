@@ -21,15 +21,15 @@ const ItemSchema = new Schema(
     craftingImage: String,
     nameItem: { nameItemSpanish: String, nameItemEnglish: String },
   },
-  //   {
-  //     toJSON: {
-  //       virtuals: false,
-  //       versionKey: false,
-  //       transform: function (doc, ret) {
-  //         delete ret._id;
-  //       },
-  //     },
-  //   },
+    {
+      toJSON: {
+        virtuals: false,
+        versionKey: false,
+        transform: function (doc, ret) {
+          delete ret._id;
+        },
+      },
+    },
 );
 
 module.exports = mongoose.model('items', ItemSchema);

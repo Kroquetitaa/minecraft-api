@@ -18,15 +18,15 @@ const GamesSchema = new Schema(
     titles: [String],
     description: String,
   },
-  // {
-  //   toJSON: {
-  //     virtuals: false,
-  //     versionKey: false,
-  //     transform: function (doc, ret) {
-  //       delete ret._id;
-  //     },
-  //   },
-  // },
+  {
+    toJSON: {
+      virtuals: false,
+      versionKey: false,
+      transform: function (doc, ret) {
+        delete ret._id;
+      },
+    },
+  },
 );
 
 module.exports = mongoose.model('games', GamesSchema);

@@ -9,6 +9,7 @@ const VersionSchema = new Schema(
       default: function genUUID() {
         return uuidv4();
       },
+
     },
     version: String,
     items: [{ type: Schema.Types.Mixed, ref: 'items' }],
