@@ -5,6 +5,7 @@ const { connectDB } = require('./utils/database/db');
 
 const VersionsRoutes = require('./infraestructure/routes/versions.routes.js');
 const ItemsVersions = require('./infraestructure/routes/Items.routes.js');
+const GamesRoutes = require('./infraestructure/routes/games.routes.js');
 
 connectDB();
 const app = express();
@@ -23,6 +24,7 @@ const PORT = process.env.PORT || 8080;
 
 app.use('/api', VersionsRoutes);
 app.use('/api/items', ItemsVersions);
+app.use('/api/games', GamesRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);

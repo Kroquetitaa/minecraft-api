@@ -22,6 +22,7 @@ const messages = {
   errorFilter: () => `Failed to recovered filter values`,
   notFound: (message) => `${message} not found`,
   successUpdate: (message) => `${message} updated`,
+  errorUpdate: (message) => `Failed updated ${message}`,
   errorDelete: (message) => `Failed to deleted ${message}`,
   deleted: (message) => `Deleted ${message}`,
 };
