@@ -25,6 +25,11 @@ const messages = {
   errorUpdate: (message) => `Failed updated ${message}`,
   errorDelete: (message) => `Failed to deleted ${message}`,
   deleted: (message) => `Deleted ${message}`,
+  succesLogin: () => `Success login`,
+  successRegister: () => `Success register`,
+  errorLogin: () => `Error login`,
+  errorRegister: () => `Error register`,
+  invalidPassword: () => `Invalid Password`,
 };
 
 module.exports = {
