@@ -1,6 +1,7 @@
 const Character = require('../schemas/characters.schema.js');
 const { setError } = require('../../utils/error/error.js');
 const { status, messages } = require('../../utils/helpers/helpers.js');
+const { deleteFile } = require('../../middleware/delete-file.js');
 const ErrorFieldsException = require('../errors/missingFields.js');
 const { Ok, Accepted, Updated, Created, Internal_Server_Error, Not_found } =
   status;
@@ -24,6 +25,7 @@ const {
 const createCharacter = async (req, res, next) => {
   try {
     const newCharacter = new Character(req.body);
+    if( req.file ) newCharacter.image = req.file.path;
     if (!newCharacter.name)
       throw new ErrorFieldsException('You haven´t assigned name');
     const newCharacterInDB = await newCharacter.save();
@@ -101,6 +103,7 @@ const remove = async (req, res, next) => {
   try {
     const { name } = req.params;
     const deletedName = await Character.findOneAndDelete({ name: name });
+    if( deletedName.image ) deleteFile( deletedName.image);
     if (!deletedName) return next(setError(Not_found, notFound('Name')));
     return res.json({
       status: Ok,

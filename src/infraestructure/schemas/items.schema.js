@@ -18,7 +18,6 @@ const ItemSchema = new Schema(
     flamableItem: Boolean,
     rarityColor: { rarityColorSpanish: String, rarityColorEnglish: String },
     imageItem: String,
-    craftingImage: String,
     nameItem: { nameItemSpanish: String, nameItemEnglish: String },
   },
     {

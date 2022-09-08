@@ -1,4 +1,6 @@
 const GamesRoutes = require('express').Router();
+const upload = require('../../middleware/file.js');
+const rateLimit = require('express-rate-limit');
 const {
   createNewGame,
   getAllGames,
@@ -23,7 +25,14 @@ const {
   pathRemove
 } = RoutesItems;
 
-GamesRoutes.post(pathCreate, createNewGame);
+const createRateLimit = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 2,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+GamesRoutes.post(pathCreate,[createRateLimit], upload.single('image'), createNewGame);
 GamesRoutes.get(pathAll, getAllGames);
 GamesRoutes.get(pathGameID, getGameID);
 GamesRoutes.get(pathGame, getGame);

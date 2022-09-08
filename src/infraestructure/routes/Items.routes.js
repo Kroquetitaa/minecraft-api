@@ -1,4 +1,6 @@
 const ItemsVersions = require('express').Router();
+const upload = require('../../middleware/file.js');
+const rateLimit = require('express-rate-limit');
 const {
   createNewItem,
   getAllItems,
@@ -11,6 +13,7 @@ const {
   removeID
 } = require('../controllers/items.controller.js');
 const RoutesItems = require('../api/routesItems.js');
+
 const {
     pathCreate,
   pathAll,
@@ -23,7 +26,14 @@ const {
   pathDelete,
 } = RoutesItems;
 
-ItemsVersions.post(pathCreate, createNewItem);
+const createRateLimit = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 2,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+ItemsVersions.post(pathCreate,[createRateLimit], upload.single('imageItem'), createNewItem);
 ItemsVersions.get(pathAll, getAllItems);
 ItemsVersions.get(pathID, getItem);
 ItemsVersions.get(pathIDName, getMinecraftIDName);

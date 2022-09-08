@@ -1,5 +1,6 @@
 const Items = require('../schemas/items.schema.js');
 const { setError } = require('../../utils/error/error.js');
+const { deleteFile } = require('../../middleware/delete-file.js');
 const { status, messages } = require('../../utils/helpers/helpers.js');
 const ErrorFieldsException = require('../errors/missingFields.js');
 const { Ok, Accepted, Updated, Created, Internal_Server_Error, Not_found } =
@@ -24,6 +25,7 @@ const {
 const createNewItem = async (req, res, next) => {
   try {
     const newItem = new Items(req.body);
+    if (req.file) newItem.imageItem = req.file.path;
     if (!newItem.minecraftIDName || !newItem.minecraftID)
       throw new ErrorFieldsException(
         'You haven´t assigned a minecraftIDName || minecraftID',
@@ -155,12 +157,7 @@ const update = async (req, res, next) => {
       data: updateItem,
     });
   } catch (error) {
-    return next(
-      setError(
-        Internal_Server_Error,
-        errorUpdate('MinecraftID'),
-      ),
-    );
+    return next(setError(Internal_Server_Error, errorUpdate('MinecraftID')));
   }
 };
 
@@ -170,6 +167,7 @@ const removeID = async (req, res, next) => {
     const deletedID = await Items.findOneAndDelete({
       minecraftID: minecraftID,
     });
+    if (deletedID.imageItem) deleteFile(deletedID.imageItem);
     if (!deletedID) return next(setError(Not_found, notFound('minecraftID')));
     return res.json({
       status: Accepted,
@@ -177,9 +175,7 @@ const removeID = async (req, res, next) => {
       data: deletedID,
     });
   } catch (error) {
-    return next(
-      setError(Internal_Server_Error, errorDelete('MinecraftID')),
-    );
+    return next(setError(Internal_Server_Error, errorDelete('MinecraftID')));
   }
 };
 

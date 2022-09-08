@@ -1,5 +1,6 @@
 const Games = require('../schemas/games.schema.js');
 const { setError } = require('../../utils/error/error.js');
+const { deleteFile } = require('../../middleware/delete-file.js');
 const { status, messages } = require('../../utils/helpers/helpers.js');
 const ErrorFieldsException = require('../errors/missingFields.js');
 const { Ok, Accepted, Updated, Created, Internal_Server_Error, Not_found } =
@@ -24,6 +25,7 @@ const {
 const createNewGame = async (req, res, next) => {
   try {
     const newGame = new Games(req.body);
+    if( req.file ) newGame.image = req.file.path;
     if (!newGame.id || !newGame.game)
       throw new ErrorFieldsException('You haven´t assigned a ID || game');
     const newGameInDB = await newGame.save();
@@ -146,6 +148,7 @@ const removeID = async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedID = await Games.findOneAndDelete({ id: id });
+    if( deletedID.image ) deleteFile( deletedID.image);
     if (!deletedID) return next(setError(Not_found, notFound('ID')));
     return res.json({
       status: Ok,
