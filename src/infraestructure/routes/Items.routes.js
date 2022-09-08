@@ -1,5 +1,6 @@
 const ItemsVersions = require('express').Router();
 const upload = require('../middleware/file.js');
+const {authorize} = require('../middleware/auth.js');
 const rateLimit = require('express-rate-limit');
 const {
   createNewItem,
@@ -33,14 +34,14 @@ const createRateLimit = rateLimit({
   legacyHeaders: false,
 });
 
-ItemsVersions.post(pathCreate,[createRateLimit], upload.single('imageItem'), createNewItem);
+ItemsVersions.post(pathCreate,[createRateLimit, authorize], upload.single('imageItem'), createNewItem);
 ItemsVersions.get(pathAll, getAllItems);
 ItemsVersions.get(pathID, getItem);
 ItemsVersions.get(pathIDName, getMinecraftIDName);
 ItemsVersions.get(pathMultipleID, getMultipleItems);
 ItemsVersions.get(pathMultipleIDName, getMultipleMinecraftIDName);
 ItemsVersions.get(pathFilter, filter);
-ItemsVersions.patch(pathUpdated, update);
-ItemsVersions.delete(pathDelete, removeID);
+ItemsVersions.patch(pathUpdated,[authorize], update);
+ItemsVersions.delete(pathDelete,[authorize], removeID);
 
 module.exports = ItemsVersions;

@@ -17,7 +17,6 @@ const { notFound, succesLogin, successRegister, errorLogin, errorRegister, inval
 const register = async (req, res, next) => {
   try {
     const newUser = new User(req.body);
-    console.log( newUser )
     const emailExist = await User.findOne({ email: newUser.email });
     const usernameExist = await User.findOne({ username: newUser.username });
     if (emailExist || usernameExist)

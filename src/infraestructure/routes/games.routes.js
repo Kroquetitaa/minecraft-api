@@ -1,5 +1,6 @@
 const GamesRoutes = require('express').Router();
 const upload = require('../middleware/file.js');
+const {authorize} = require('../middleware/auth.js');
 const rateLimit = require('express-rate-limit');
 const {
   createNewGame,
@@ -32,13 +33,13 @@ const createRateLimit = rateLimit({
   legacyHeaders: false,
 });
 
-GamesRoutes.post(pathCreate,[createRateLimit], upload.single('image'), createNewGame);
+GamesRoutes.post(pathCreate,[authorize, createRateLimit], upload.single('image'), createNewGame);
 GamesRoutes.get(pathAll, getAllGames);
 GamesRoutes.get(pathGameID, getGameID);
 GamesRoutes.get(pathGame, getGame);
 GamesRoutes.get(pathMultipleGameID, getMultipleGameID);
 GamesRoutes.get(pathMultipleGame, getMultipleGame);
 GamesRoutes.get(pathFilter, filter);
-GamesRoutes.patch(pathUpdated, update);
-GamesRoutes.delete(pathRemove, removeID);
+GamesRoutes.patch(pathUpdated,[authorize], update);
+GamesRoutes.delete(pathRemove,[authorize], removeID);
 module.exports = GamesRoutes;

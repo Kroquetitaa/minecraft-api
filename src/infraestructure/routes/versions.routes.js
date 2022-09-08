@@ -1,4 +1,5 @@
 const VersionsRoutes = require('express').Router();
+const {authorize} = require('../middleware/auth.js');
 const {
   createVersion,
   getAllVersions,
@@ -17,11 +18,11 @@ const {
   pathDelete,
 } = RoutesVersions;
 
-VersionsRoutes.post(pathCreate, createVersion);
+VersionsRoutes.post(pathCreate,[authorize], createVersion);
 VersionsRoutes.get(pathAll, getAllVersions);
 VersionsRoutes.get(pathSingle, getSingleVersion);
 VersionsRoutes.get(pathMultiple, getMultipleVersions);
-VersionsRoutes.patch(pathUpdated, update);
-VersionsRoutes.delete(pathDelete, remove);
+VersionsRoutes.patch(pathUpdated,[authorize], update);
+VersionsRoutes.delete(pathDelete,[authorize], remove);
 
 module.exports = VersionsRoutes;

@@ -1,5 +1,6 @@
 const CharactersRoutes = require('express').Router();
 const upload = require('../middleware/file.js');
+const {authorize} = require('../middleware/auth.js');
 const rateLimit = require('express-rate-limit');
 const {
   createCharacter,
@@ -26,11 +27,11 @@ const createRateLimit = rateLimit({
   legacyHeaders: false,
 });
 
-CharactersRoutes.post(pathCreate,[createRateLimit], upload.single('image'), createCharacter);
+CharactersRoutes.post(pathCreate,[authorize, createRateLimit], upload.single('image'), createCharacter);
 CharactersRoutes.get(pathAll, getAllCharacter);
 CharactersRoutes.get(pathName, getByName);
 CharactersRoutes.get(pathMultipleNames, getMultipleNames);
-CharactersRoutes.patch(pathUpdate, update);
-CharactersRoutes.delete(pathRemove, remove);
+CharactersRoutes.patch(pathUpdate,[authorize], update);
+CharactersRoutes.delete(pathRemove,[authorize], remove);
 
 module.exports = CharactersRoutes;
