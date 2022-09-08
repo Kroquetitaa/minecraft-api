@@ -1,6 +1,5 @@
 const UsersRoutes = require('express').Router();
 const rateLimit = require('express-rate-limit');
-const {authorize} = require('../middleware/auth.js');
 const { register, login } = require('../controllers/user.controller.js');
 
 const userCreateRateLimit = rateLimit({
