@@ -1,6 +1,6 @@
 const Items = require('../schemas/items.schema.js');
 const { setError } = require('../../utils/error/error.js');
-const { deleteFile } = require('../../middleware/delete-file.js');
+const { deleteFile } = require('../middleware/delete-file.js');
 const { status, messages } = require('../../utils/helpers/helpers.js');
 const ErrorFieldsException = require('../errors/missingFields.js');
 const { Ok, Accepted, Updated, Created, Internal_Server_Error, Not_found } =

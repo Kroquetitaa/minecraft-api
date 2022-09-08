@@ -1,5 +1,5 @@
 const GamesRoutes = require('express').Router();
-const upload = require('../../middleware/file.js');
+const upload = require('../middleware/file.js');
 const rateLimit = require('express-rate-limit');
 const {
   createNewGame,
