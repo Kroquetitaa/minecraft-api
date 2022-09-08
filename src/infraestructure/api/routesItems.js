@@ -1,13 +1,13 @@
 const RoutesItems = {
     pathCreate: '/create',
-    pathAll: '/All',
-    pathID: '/:minecraftID',
-    pathIDName: '/name/:minecraftIDName',
-    pathMultipleID: '/multipleID/:minecraftID',
-    pathMultipleIDName: '/multipleName/:minecraftIDName',
-    pathFilter : '/value/filter/',
-    pathUpdated: '/updatedItem/:minecraftID',
-    pathDelete: '/removeID/:minecraftID',
+    pathAll: '/',
+    pathID: '/id/:minecraftID',
+    pathIDName: '/idname/:minecraftIDName',
+    pathMultipleID: '/multipleid/:minecraftID',
+    pathMultipleIDName: '/multiplename/:minecraftIDName',
+    pathFilter : '/filter/',
+    pathUpdated: '/update/:minecraftID',
+    pathDelete: '/remove/:minecraftID',
 };
 
 module.exports = RoutesItems;

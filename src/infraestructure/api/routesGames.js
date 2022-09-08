@@ -1,12 +1,12 @@
 const RoutesGames = {
     pathCreate: '/create',
-    pathAll: '/All',
-    pathGameID: '/gameID/:id',
+    pathAll: '/',
+    pathGameID: '/gameid/:id',
     pathGame: '/game/:game',
-    pathMultipleGameID: '/multipleGame/:id',
-    pathMultipleGame: '/multipleGames/:game',
-    pathFilter: '/value/filter/',
-    pathUpdated: '/updated/:id',
+    pathMultipleGameID: '/multiplegamesid/:id',
+    pathMultipleGame: '/multiplegames/:game',
+    pathFilter: '/filter/',
+    pathUpdated: '/update/:id',
     pathRemove: '/remove/:id',
 };
 
