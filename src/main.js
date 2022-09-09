@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { connectDB } = require('./utils/database/db.js');
-const { setUpCloudinary } = require('./utils/cloudinary/cloudinary.js');
 
 const UsersRoutes = require('./infraestructure/routes/user.routes.js');
 const VersionsRoutes = require('./infraestructure/routes/versions.routes.js');
