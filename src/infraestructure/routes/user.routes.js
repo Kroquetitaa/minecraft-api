@@ -1,6 +1,8 @@
 const UsersRoutes = require('express').Router();
 const rateLimit = require('express-rate-limit');
 const { register, login } = require('../controllers/user.controller.js');
+const RoutesUser = require('../api/routesUser.js');
+const { pathRegister, pathLogin} = RoutesUser;
 
 const userCreateRateLimit = rateLimit({
     windowMs: 1 * 60 * 1000,
@@ -9,7 +11,7 @@ const userCreateRateLimit = rateLimit({
     legacyHeaders: false,
 });
 
-UsersRoutes.post('/register', [userCreateRateLimit], register );
-UsersRoutes.post('/login', login );
+UsersRoutes.post(pathRegister, [userCreateRateLimit], register );
+UsersRoutes.post(pathLogin, login );
 
 module.exports = UsersRoutes;
