@@ -11,7 +11,7 @@ const ItemSchema = new Schema(
         return uuidv4();
       },
     },
-    item: Number,
+    item: String,
     minecraftIDName: { type: String, unique: true },
     minecraftID: { type: Number, unique: true },
     minecraftDataValue: { type: Number, enum: DATAVALUE },
