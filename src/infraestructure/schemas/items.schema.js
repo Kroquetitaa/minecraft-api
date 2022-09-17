@@ -13,6 +13,7 @@ const ItemSchema = new Schema(
     },
     id: Number,
     item: String,
+    minecraftName: String,
     minecraftIDName: { type: String, unique: true },
     minecraftID: { type: Number, unique: true },
     minecraftDataValue: { type: Number, enum: DATAVALUE },
